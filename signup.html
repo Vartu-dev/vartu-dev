@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Signup | VARTU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root { --accent: #2196f3; --accent-dark: #1769aa; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      min-height:100vh; margin:0;
+      background:linear-gradient(120deg,#f8faf7 0%,#fff 100%);
+      font-family:'Segoe UI',Arial,sans-serif;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .login-split {
+      display: flex;
+      width: 920px;
+      min-height: 520px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.08);
+      overflow: hidden;
+      margin: 40px 0;
+    }
+    .login-left {
+      flex: 1.1;
+      background: linear-gradient(135deg,#e3f2fd 60%,#bbdefb 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
+    }
+    .login-left svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 28px;
+      color: var(--accent);
+      display: block;
+    }
+    .login-left h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .login-left p {
+      color: #455a64;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    .login-right {
+      flex: 1.2;
+      min-width: 340px;
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
+    .logo-circle {
+      width: 56px;
+      height: 56px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px auto;
+      box-shadow: 0 4px 18px rgba(33,150,243,0.10);
+    }
+    .logo-circle svg {
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      display: block;
+    }
+    .login-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .login-desc {
+      color: #455a64;
+      font-size: 1.06rem;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      width: 100%;
+      max-width: 350px;
+    }
+    .input-icon {
+      position: relative;
+      width: 100%;
+      margin-bottom: 0;
+    }
+    .input-icon svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64b5f6;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+    .login-form input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      border: 1.5px solid #90caf9;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #222;
+      background: #e3f2fd;
+      transition: border 0.2s, background 0.2s;
+      outline: none;
+      box-sizing: border-box;
+      margin-bottom: 0;
+    }
+    .login-form input:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+    .login-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      font-size: 1.08rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      box-shadow: 0 4px 18px rgba(33,150,243,0.10);
+      transition: background 0.2s, box-shadow 0.2s;
+      letter-spacing: 1px;
+    }
+    .login-btn:hover {
+      background: var(--accent-dark);
+      box-shadow: 0 8px 32px rgba(33,150,243,0.18);
+    }
+    .login-links {
+      margin-top: 16px;
+      font-size: 1rem;
+      color: #555;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .login-links a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .login-links a:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
+    }
+    @media (max-width: 1100px) {
+      .login-split { width: 98vw; }
+    }
+    @media (max-width:899px) {
+      .login-split { flex-direction:column; width:100%; max-width:400px; min-height:auto; margin: 24px 0;}
+      .login-left { display:none; }
+      .login-right { padding:24px 10vw; }
+      .login-form { max-width: 100%; }
+      .login-form input, .login-btn { max-width:100%; }
+    }
+    @media (max-width:500px) {
+      .login-right { padding:16px 4vw; }
+      .login-form { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-split">
+    <div class="login-left">
+      <svg fill="none" viewBox="0 0 48 48" stroke="currentColor">
+        <circle cx="24" cy="24" r="18" stroke-width="3" fill="none"/>
+        <path stroke-width="3" stroke-linecap="round" d="M24 14v10l7 7"/>
+      </svg>
+      <h2>Join VARTU</h2>
+      <p>Start your sustainable journey today</p>
+    </div>
+    <div class="login-right">
+      <div class="logo-circle">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="12" cy="8" r="4" stroke-width="2"/>
+          <path stroke-width="2" d="M4 20c0-4 16-4 16 0"/>
+        </svg>
+      </div>
+      <div class="login-title">Customer Signup</div>
+      <div class="login-desc">Create your VARTU account</div>
+      <form class="login-form">
+        <div class="input-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="12" cy="8" r="4" stroke-width="2"/>
+            <path stroke-width="2" d="M4 20c0-4 16-4 16 0"/>
+          </svg>
+          <input type="text" placeholder="Full Name" required>
+        </div>
+        <div class="input-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <path stroke-width="2" d="M12 8v4l3 3"/>
+          </svg>
+          <input type="text" placeholder="Username" required>
+        </div>
+        <div class="input-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 8l7.89 5.26a3 3 0 0 0 3.22 0L22 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z" />
+          </svg>
+          <input type="email" placeholder="Email" required>
+        </div>
+        <div class="input-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="12" cy="8" r="4" stroke-width="2"/>
+            <path stroke-width="2" d="M4 20c0-4 16-4 16 0"/>
+          </svg>
+          <input type="tel" placeholder="Phone Number" required>
+        </div>
+        <div class="input-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <rect x="5" y="11" width="14" height="8" rx="2" stroke-width="2"/>
+            <path stroke-width="2" d="M12 16v-2"/>
+            <path stroke-width="2" d="M8 11V7a4 4 0 0 1 8 0v4"/>
+          </svg>
+          <input type="password" placeholder="Password" required>
+        </div>
+        <div class="input-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <rect x="5" y="11" width="14" height="8" rx="2" stroke-width="2"/>
+            <path stroke-width="2" d="M12 16v-2"/>
+            <path stroke-width="2" d="M8 11V7a4 4 0 0 1 8 0v4"/>
+          </svg>
+          <input type="password" placeholder="Confirm Password" required>
+        </div>
+        <button type="submit" class="login-btn">Create Account</button>
+      </form>
+      <div class="login-links">
+        Already have an account? <a href="https://vartu.in/?page_id=1506">Login</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
