@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaf Waste | VARTU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- FontAwesome for hamburger icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      background: #f8faf7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #222;
+    }
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f4fcf5;
+      border-bottom: 2px solid #21a144;
+      padding: 8px 0 8px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      margin-left: 24px;
+    }
+    .logo-circle {
+      width: 56px;
+      height: 56px;
+      background: #21a144;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+    }
+    .logo-circle svg {
+      width: 32px;
+      height: 32px;
+      color: #fff;
+    }
+    .brand {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #17843e;
+      letter-spacing: 1px;
+      font-family: Arial, sans-serif;
+    }
+    .navbar-links {
+      margin-right: 48px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      transition: right 0.3s;
+    }
+    .navbar-links a, .dropdown-toggle {
+      color: #17843e;
+      background: transparent;
+      text-decoration: none;
+      margin-left: 32px;
+      font-size: 1.1rem;
+      font-family: Arial, sans-serif;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+    }
+    .navbar-links a:hover,
+    .navbar-links a:focus,
+    .navbar-links a.active,
+    .dropdown-toggle:hover,
+    .dropdown-toggle:focus {
+      background: #21a144;
+      color: #fff;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-toggle {
+      user-select: none;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 110%;
+      background: #fff;
+      min-width: 180px;
+      box-shadow: 0 4px 16px rgba(60,120,60,0.10);
+      border-radius: 8px;
+      z-index: 1000;
+      padding: 8px 0;
+      border: 1px solid #e0e0e0;
+    }
+    .dropdown-content a {
+      display: block;
+      padding: 10px 22px;
+      color: #17843e;
+      text-decoration: none;
+      font-size: 1.05rem;
+      border-radius: 0;
+      background: transparent;
+      transition: background 0.2s, color 0.2s;
+    }
+    .dropdown-content a:hover,
+    .dropdown-content a:focus {
+      background: #21a144;
+      color: #fff;
+    }
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      color: #17843e;
+      background: none;
+      border: none;
+      margin-right: 24px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+    @media (max-width: 700px) {
+      .navbar {
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 0 10px 0;
+      }
+      .navbar-links {
+        position: fixed;
+        top: 70px;
+        right: 0;
+        background: #f4fcf5;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 230px;
+        height: 100vh;
+        margin: 0;
+        padding: 30px 0 0 0;
+        box-shadow: -2px 0 16px rgba(60,120,60,0.07);
+        transform: translateX(100%);
+        transition: transform 0.3s;
+        z-index: 1050;
+      }
+      .navbar-links.open {
+        transform: translateX(0);
+      }
+      .navbar-links a, .dropdown-toggle {
+        margin: 0 0 8px 24px;
+        width: 90%;
+        text-align: left;
+      }
+      .dropdown-content {
+        position: static;
+        min-width: 100%;
+        box-shadow: none;
+        border-radius: 0 0 8px 8px;
+        border: none;
+        padding: 0;
+      }
+      .hamburger {
+        display: block;
+      }
+      body.menu-open {
+        overflow: hidden;
+      }
+    }
+    /* Main Content Box */
+    .main-content {
+      max-width: 800px;
+      margin: 40px auto 0 auto;
+      background: #fff;
+      border: 1.2px solid #222;
+      border-radius: 6px;
+      padding: 32px 28px 32px 28px;
+      box-sizing: border-box;
+      position: relative;
+      min-height: 350px;
+    }
+    .back-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 8px 18px;
+      border: 1.2px solid #222;
+      border-radius: 8px;
+      background: #fff;
+      color: #222;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .back-btn:hover {
+      background: #21a144;
+      color: #fff;
+      border-color: #21a144;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: bold;
+      margin-bottom: 22px;
+      letter-spacing: 1px;
+    }
+    h2 {
+      font-size: 1.11rem;
+      font-weight: bold;
+      margin: 24px 0 8px 0;
+    }
+    p {
+      font-size: 1.06rem;
+      margin-bottom: 16px;
+      color: #222;
+      line-height: 1.6;
+    }
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .solution-card {
+      border: 1.2px solid #222;
+      border-radius: 6px;
+      padding: 12px 10px;
+      background: #fff;
+      font-size: 1.02rem;
+      margin-bottom: 0;
+      min-height: 80px;
+      box-sizing: border-box;
+      transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .solution-card strong {
+      font-size: 1.06rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+      color: #111;
+    }
+    .solution-card:hover {
+      background: #eafef1;
+      border-color: #21a144;
+      box-shadow: 0 0 0 3px #bfe3c6, 0 6px 24px rgba(33,161,68,0.10);
+    }
+    /* Contact Form */
+    .contact-section {
+      margin: 36px auto 40px auto;
+      max-width: 700px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(60, 120, 60, 0.07);
+      border: 1.2px solid #bfe3c6;
+      padding: 32px 24px 28px 24px;
+      text-align: center;
+    }
+    .contact-section h2 {
+      color: #17843e;
+      font-size: 1.22rem;
+      font-weight: bold;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+    .contact-section p {
+      color: #3b4d3b;
+      font-size: 1.04rem;
+      margin-bottom: 22px;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 0;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      max-width: 420px;
+      padding: 10px 14px 10px 40px;
+      border: 1.2px solid #bfe3c6;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #222;
+      background: #f8faf7;
+      outline: none;
+      transition: border 0.2s;
+      box-sizing: border-box;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border: 1.2px solid #21a144;
+      background: #fff;
+    }
+    .contact-form textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+    .input-icon {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+    .input-icon svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b0b0b0;
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding-left: 40px;
+    }
+    .submit-btn {
+      background: #16b34a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 28px;
+      font-size: 1.07rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover {
+      background: #17843e;
+    }
+    /* Carousel */
+    .carousel-outer {
+      overflow: hidden;
+      width: 100%;
+      max-width: 1000px;
+      margin: 40px auto;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(60,120,60,0.07);
+    }
+    .carousel-title {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #17843e;
+      margin-bottom: 32px;
+      justify-content: center;
+      gap: 12px;
+      letter-spacing: 0.5px;
+      padding-top: 32px;
+    }
+    .carousel-title svg {
+      color: #e6a72a;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.7s cubic-bezier(.77,0,.18,1);
+    }
+    .carousel-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 24px;
+      padding: 0 18px 38px 18px;
+    }
+    .card, .photo-card, .video-card {
+      flex: 1 1 0;
+      min-width: 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(60,120,60,0.04);
+      background: #e6faec;
+      border: 1.5px solid #c6f2d5;
+      padding: 20px 18px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+    .card-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; color: #137032;}
+    .card-content { font-size: 1rem; color: #3b4d3b; }
+    .photo-card { padding: 0; overflow: hidden; min-height: 220px; }
+    .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 10px 10px 0 0;}
+    .photo-caption { padding: 10px 16px; font-size: 1rem; font-weight: 500; color: #137032; background: rgba(255,255,255,0.95); border-radius: 0 0 10px 10px; text-align: center; margin-top: auto;}
+    .video-card { padding: 0; overflow: hidden; min-height: 220px; background: #000;}
+    .video-card iframe { width: 100%; height: 180px; border: none; display: block; background: #000;}
+    .video-caption { padding: 10px 16px; font-size: 1rem; font-weight: 500; color: #fff; background: rgba(19, 112, 50, 0.8); border-radius: 0 0 10px 10px; text-align: center; margin-top: auto;}
+    .carousel-indicators { display: flex; justify-content: center; margin-top: 0; gap: 8px; padding-bottom: 18px;}
+    .indicator { width: 10px; height: 10px; border-radius: 50%; background: #d4d4d4; cursor: pointer; transition: background 0.2s;}
+    .indicator.active { background: #137032;}
+    /* Sitemap */
+    .sitemap-section {
+      background: #f6fef7;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(60,120,60,0.07);
+      padding: 38px 18px 18px 18px;
+      margin-bottom: 30px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sitemap-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #17843e;
+      margin-bottom: 32px;
+      gap: 10px;
+      letter-spacing: 0.5px;
+    }
+    .sitemap-title svg {
+      color: #21a144;
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .sitemap-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 950px;
+      margin: 0 auto 18px auto;
+    }
+    .sitemap-col {
+      text-align: left;
+    }
+    .sitemap-col .col-title {
+      font-weight: bold;
+      color: #17843e;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 1.08rem;
+    }
+    .sitemap-col .col-title svg {
+      width: 18px;
+      height: 18px;
+    }
+    .sitemap-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #333;
+    }
+    .sitemap-col ul li {
+      margin-bottom: 7px;
+      font-size: 1rem;
+    }
+    .sitemap-footer {
+      border-top: 1px solid #e0e0e0;
+      margin-top: 22px;
+      padding-top: 14px;
+      text-align: center;
+      color: #8bbf9b;
+      font-size: 0.98rem;
+    }
+    @media (max-width: 900px) {
+      .main-content {
+        padding: 16px 3vw 16px 3vw;
+      }
+      .back-btn {
+        top: 12px;
+        right: 3vw;
+      }
+      .solutions-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-section, .sitemap-section, .carousel-outer {
+        padding: 18px 2vw 18px 2vw;
+      }
+    }
+    @media (max-width: 600px) {
+      .main-content {
+        padding: 6px 2vw 12px 2vw;
+      }
+      .back-btn {
+        top: 6px;
+        right: 2vw;
+      }
+      h1 { font-size: 1.1rem;}
+      h2 { font-size: 0.98rem;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <div class="logo-circle">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 13c0 3.314 2.686 6 6 6s6-2.686 6-6V5.5A2.5 2.5 0 0 0 14.5 3h-5A2.5 2.5 0 0 0 7 5.5V13z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 17V9" />
+        </svg>
+      </div>
+      <span class="brand">VARTU</span>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="navbar-links" id="navbarLinks">
+      <a href="https://vartu.in/">Home</a>
+      <a href="#">Work with us</a>
+      <div class="dropdown" id="loginDropdown">
+        <span class="dropdown-toggle" id="loginToggle" tabindex="0">Login</span>
+        <div class="dropdown-content" id="loginMenu">
+          <a href="https://vartu.in/?page_id=1506">Customer</a>
+          <a href="https://vartu.in/?page_id=1514">Operations</a>
+          <a href="https://vartu.in/?page_id=1500">Channel Partner</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Box (Leaf Waste details) -->
+  <div class="main-content">
+    <button class="back-btn" onclick="window.location.href='https://vartu.in/'">Back to Home</button>
+    <h1>LEAF WASTE</h1>
+    <h2>What is Leaf Waste?</h2>
+    <p>
+      Leaf waste consists of fallen leaves from trees and plants. These natural materials are often discarded as waste but can be valuable resources when properly managed and recycled.
+    </p>
+    <h2>Environmental Impact</h2>
+    <p>
+      When leaf waste is improperly disposed of, it can clog drainage systems and contribute to flooding. In landfills, it decomposes anaerobically and produces methane, a potent greenhouse gas.
+    </p>
+    <h2>Sustainable Solutions</h2>
+    <div class="solutions-grid">
+      <div class="solution-card">
+        <strong>Composting</strong>
+        Leaf waste can be transformed into nutrient-rich compost that improves soil structure, enhances water retention, and provides essential nutrients for plants.
+      </div>
+      <div class="solution-card">
+        <strong>Mulching</strong>
+        Shredded leaves make excellent mulch that suppresses weeds, regulates soil temperature, and reduces water evaporation from the soil surface.
+      </div>
+      <div class="solution-card">
+        <strong>Biochar Production</strong>
+        Converting leaf waste into biochar creates a stable carbon-rich material that can sequester carbon in soil for centuries while improving soil fertility.
+      </div>
+      <div class="solution-card">
+        <strong>Animal Bedding</strong>
+        Dried leaves can be used as bedding material for livestock and small animals, providing comfort and absorbing waste materials.
+      </div>
+    </div>
+    <h2>VARTU's Approach</h2>
+    <p>
+      At VARTU, we collect leaf waste from communities, parks, and institutions. Our specialized processing system converts this waste into valuable resources for agriculture, gardening, and other applications. We provide collection services, processing solutions, and educational programs to help communities manage leaf waste sustainably.
+    </p>
+  </div>
+
+  <!-- Contact Section (inserted here, before success stories) -->
+  <div class="contact-section">
+    <h2>CONTACT US</h2>
+    <p>Have questions? Fill the form and check your email for confirmation.</p>
+    <form class="contact-form" id="contactForm">
+        <div class="input-icon">
+            <input type="text" id="name" name="Name" placeholder="Your Name" required>
+            <span class="error-message" id="nameError"></span>
+        </div>
+        <div class="input-icon">
+            <input type="email" id="email" name="Email" placeholder="Your Email" required>
+            <span class="error-message" id="emailError"></span>
+        </div>
+        <div class="input-icon">
+            <input type="tel" id="phone" name="Phone" placeholder="Your Phone Number" pattern="[0-9+\s\-]{7,15}" required>
+            <span class="error-message" id="phoneError"></span>
+        </div>
+        <div class="input-icon">
+            <textarea id="message" name="Message" placeholder="Your Message" required></textarea>
+            <span class="error-message" id="messageError"></span>
+        </div>
+        <button type="submit" class="submit-btn">Submit Message</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.error-message').forEach(el => { el.style.display = 'none'; el.textContent = ''; });
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+    let isValid = true;
+    if (name.length < 3) { showError('nameError', 'Name must be at least 3 characters'); isValid = false; }
+    if (!validateEmail(email)) { showError('emailError', 'Please enter a valid email address'); isValid = false; }
+    if (!validatePhone(phone)) { showError('phoneError', 'Enter a valid phone number (7-15 digits)'); isValid = false; }
+    if (message.length < 1) { showError('messageError', 'Message is required'); isValid = false; }
+    if (isValid) {
+        submitForm({
+            Name: name,
+            Email: email,
+            Phone: phone,
+            Message: message
+        });
+    }
+});
+function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+function validatePhone(phone) {
+    return /^[0-9+\s\-]{7,15}$/.test(phone);
+}
+async function submitForm(formData) {
+    try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbwmfl85-nHMLpCPYEEwD7yvqR-qi1Ul2u3m5f9fwdzreVSET_4UdZBi5VH71APuH_Q/exec', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData)
+        });
+        if (response.ok) {
+            alert('Message sent! Check your email (and spam folder) for confirmation.');
+            document.getElementById('contactForm').reset();
+        } else {
+            alert('Submission failed. Please try again.');
+        }
+    } catch (error) {
+        alert('Error submitting form. Please try again later.');
+        console.error('Submission error:', error);
+    }
+}
+</script>
+
+
+  <!-- Success Stories Carousel -->
+  <div class="carousel-outer" id="carousel-outer">
+    <div class="carousel-title">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/>
+      </svg>
+      LEAF WASTE SUCCESS STORIES
+    </div>
+    <div class="carousel-track" id="carousel-track">
+      <!-- Slide 1: Cards -->
+      <div class="carousel-slide">
+        <div class="card green">
+          <div class="card-title">Leaf Composting Drive</div>
+          <div class="card-content">Transformed 2 tons of leaf waste into compost for local gardens.</div>
+        </div>
+        <div class="card green">
+          <div class="card-title">Urban Park Cleanup</div>
+          <div class="card-content">Mobilized 100+ volunteers to collect and recycle fallen leaves.</div>
+        </div>
+        <div class="card green">
+          <div class="card-title">School Green Project</div>
+          <div class="card-content">Students created compost bins and reduced landfill waste.</div>
+        </div>
+      </div>
+      <!-- Slide 2: Photos -->
+      <div class="carousel-slide">
+        <div class="photo-card green">
+          <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="Leaf Compost">
+          <div class="photo-caption">Leaf Composting</div>
+        </div>
+        <div class="photo-card green">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Park Cleanup">
+          <div class="photo-caption">Park Cleanup</div>
+        </div>
+        <div class="photo-card green">
+          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="School Project">
+          <div class="photo-caption">School Project</div>
+        </div>
+      </div>
+      <!-- Slide 3: Videos -->
+      <div class="carousel-slide">
+        <div class="video-card green">
+          <iframe src="https://www.youtube.com/embed/6v2L2UGZJAM?controls=0" title="Leaf Compost Video" allowfullscreen></iframe>
+          <div class="video-caption">Leaf Composting</div>
+        </div>
+        <div class="video-card green">
+          <iframe src="https://www.youtube.com/embed/8Zc8g6v1h4g?controls=0" title="Park Cleanup Video" allowfullscreen></iframe>
+          <div class="video-caption">Park Cleanup</div>
+        </div>
+        <div class="video-card green">
+          <iframe src="https://www.youtube.com/embed/4p6d4nYjG2A?controls=0" title="School Project Video" allowfullscreen></iframe>
+          <div class="video-caption">School Project</div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-indicators">
+      <span class="indicator active" data-slide="0"></span>
+      <span class="indicator" data-slide="1"></span>
+      <span class="indicator" data-slide="2"></span>
+    </div>
+  </div>
+
+  <!-- Site Map Section -->
+  <div class="sitemap-section">
+    <div class="sitemap-title">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <circle cx="12" cy="12" r="10" stroke-width="2" />
+        <path stroke-width="2" d="M12 8v4l3 3" />
+      </svg>
+      SITE MAP
+    </div>
+    <div class="sitemap-grid">
+      <div class="sitemap-col">
+        <div class="col-title">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2"/></svg>
+          Main
+        </div>
+        <ul>
+          <li>Home</li>
+        </ul>
+      </div>
+      <div class="sitemap-col">
+        <div class="col-title">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2"/></svg>
+          Waste Categories
+        </div>
+        <ul>
+          <li>Leaf Waste</li>
+          <li>Agri Waste</li>
+          <li>Food Waste</li>
+        </ul>
+      </div>
+      <div class="sitemap-col">
+        <div class="col-title">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="2" stroke-width="2"/></svg>
+          Information
+        </div>
+        <ul>
+          <li>Success Stories</li>
+          <li>Contact Us</li>
+        </ul>
+      </div>
+      <div class="sitemap-col">
+        <div class="col-title">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2"/></svg>
+          Legal
+        </div>
+        <ul>
+          <li>Privacy Policy</li>
+          <li>Terms of Service</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sitemap-footer">
+      © 2025 VARTU. All rights reserved.
+    </div>
+  </div>
+  <script>
+    // Hamburger menu toggle for mobile
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navbarLinks = document.getElementById('navbarLinks');
+    hamburgerBtn.addEventListener('click', function() {
+      navbarLinks.classList.toggle('open');
+      document.body.classList.toggle('menu-open', navbarLinks.classList.contains('open'));
+    });
+
+    // Close menu when clicking outside (mobile)
+    document.addEventListener('mousedown', function(e) {
+      if (window.innerWidth <= 700) {
+        if (!navbarLinks.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+          navbarLinks.classList.remove('open');
+          document.body.classList.remove('menu-open');
+        }
+      }
+    });
+
+    // Dropdown click-to-toggle and click outside to close
+    const dropdown = document.getElementById('loginDropdown');
+    const toggle = document.getElementById('loginToggle');
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      dropdown.classList.toggle('open');
+    });
+    document.addEventListener('mousedown', function(e) {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+
+    // Carousel logic
+    const track = document.getElementById('carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const outer = document.getElementById('carousel-outer');
+    let current = 0;
+    let interval = null;
+    const slideCount = slides.length;
+    const slideInterval = 3000; // 3 seconds
+
+    function goToSlide(idx) {
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      indicators.forEach((ind, i) => ind.classList.toggle('active', i === idx));
+      current = idx;
+    }
+
+    function nextSlide() {
+      goToSlide((current + 1) % slideCount);
+    }
+
+    function startAuto() {
+      if (interval) clearInterval(interval);
+      interval = setInterval(nextSlide, slideInterval);
+    }
+
+    indicators.forEach((ind, idx) => {
+      ind.addEventListener('click', () => {
+        goToSlide(idx);
+        startAuto();
+      });
+    });
+
+    outer.addEventListener('mouseenter', () => clearInterval(interval));
+    outer.addEventListener('mouseleave', startAuto);
+
+    goToSlide(0);
+    startAuto();
+  </script>
+</body>
+</html>

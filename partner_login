@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Partner Login | VARTU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root { --accent: #e6a72a; --accent-dark: #b3880b; }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      min-height:100vh; margin:0;
+      background:linear-gradient(120deg,#f8faf7 0%,#fff 100%);
+      font-family:'Segoe UI',Arial,sans-serif;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .login-split {
+      display: flex;
+      width: 920px;
+      min-height: 480px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.08);
+      overflow: hidden;
+      margin: 40px 0;
+    }
+    .login-left {
+      flex: 1.1;
+      background: linear-gradient(135deg,#fffbe6 60%,#ffe0b2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 32px;
+    }
+    .login-left svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 28px;
+      color: var(--accent);
+      display: block;
+    }
+    .login-left h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .login-left p {
+      color: #8d6e63;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    .login-right {
+      flex: 1.2;
+      min-width: 340px;
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
+    .logo-circle {
+      width: 56px;
+      height: 56px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px auto;
+      box-shadow: 0 4px 18px rgba(230,167,42,0.10);
+    }
+    .logo-circle svg {
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      display: block;
+    }
+    .login-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .login-desc {
+      color: #8d6e63;
+      font-size: 1.06rem;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      width: 100%;
+      max-width: 350px;
+    }
+    .input-icon {
+      position: relative;
+      width: 100%;
+      margin-bottom: 0;
+    }
+    .input-icon svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ffd54f;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+    .login-form input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      border: 1.5px solid #ffe082;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #222;
+      background: #fffde7;
+      transition: border 0.2s, background 0.2s;
+      outline: none;
+      box-sizing: border-box;
+      margin-bottom: 0;
+    }
+    .login-form input:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+    .login-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      font-size: 1.08rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      box-shadow: 0 4px 18px rgba(230,167,42,0.10);
+      transition: background 0.2s, box-shadow 0.2s;
+      letter-spacing: 1px;
+    }
+    .login-btn:hover {
+      background: var(--accent-dark);
+      box-shadow: 0 8px 32px rgba(230,167,42,0.18);
+    }
+    .login-links {
+      margin-top: 16px;
+      font-size: 1rem;
+      color: #555;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .login-links a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 8px;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+    .login-links a:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
+    }
+    @media (max-width: 1100px) {
+      .login-split { width: 98vw; }
+    }
+    @media (max-width:899px) {
+      .login-split { flex-direction:column; width:100%; max-width:400px; min-height:auto; margin: 24px 0;}
+      .login-left { display:none; }
+      .login-right { padding:24px 10vw; }
+      .login-form { max-width: 100%; }
+      .login-form input, .login-btn { max-width:100%; }
+    }
+    @media (max-width:500px) {
+      .login-right { padding:16px 4vw; }
+      .login-form { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-split">
+    <div class="login-left">
+      <!-- Handshake SVG icon -->
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-width="2" d="M17 12a5 5 0 11-10 0 5 5 0 0110 0z"/>
+        <path stroke-width="2" d="M8 12h8"/>
+      </svg>
+      <h2>Partner Network</h2>
+      <p>Collaborate with VARTU ecosystem</p>
+    </div>
+    <div class="login-right">
+      <div class="logo-circle">
+        <!-- Handshake SVG icon -->
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-width="2" d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/>
+        </svg>
+      </div>
+      <div class="login-title">Partner Login</div>
+      <div class="login-desc">Authorized partners only</div>
+      <form class="login-form">
+        <div class="input-icon">
+          <!-- User icon -->
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <path stroke-width="2" d="M12 8v4l3 3"/>
+          </svg>
+          <input type="text" placeholder="Username or Email" required>
+        </div>
+        <div class="input-icon">
+          <!-- Lock icon -->
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <rect x="5" y="11" width="14" height="8" rx="2" stroke-width="2"/>
+            <path stroke-width="2" d="M12 16v-2"/>
+            <path stroke-width="2" d="M8 11V7a4 4 0 0 1 8 0v4"/>
+          </svg>
+          <input type="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+      <div class="login-links">
+        <a href="#">Forgot password?</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
